@@ -4,10 +4,7 @@ import com.taotao.pojo.*;
 import com.taotao.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Author GJ1e
@@ -83,6 +80,13 @@ public class ItemController {
         return result;
     }
 
+    /**
+     * 后台更新商品
+     * @param item
+     * @param desc
+     * @param itemParams
+     * @return
+     */
     @RequestMapping(value = "/rest/item/update", method = RequestMethod.POST)
     @ResponseBody
     public TaotaoResult updateItem(TbItem item,String desc, String itemParams){
@@ -90,6 +94,29 @@ public class ItemController {
         return result;
     }
 
+    /**
+     * 批量删除商品
+     * @param ids
+     * @return
+     */
+    @RequestMapping(value = "/rest/item/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public TaotaoResult deleteItem(@RequestParam("ids") Long[] ids){
 
+        for (int i = 0; i < ids.length; i++) {
+
+            itemService.deleteItem(ids[i]);
+        }
+        return TaotaoResult.ok();
+    }
+
+    @RequestMapping(value = "/rest/item/instock", method = RequestMethod.POST)
+    @ResponseBody
+    public TaotaoResult updateItemStock(@RequestParam("ids") Long[] ids){
+        for (int i = 0; i < ids.length; i++) {
+            itemService.updateItemStock(ids[i]);
+        }
+        return TaotaoResult.ok();
+    }
 
 }

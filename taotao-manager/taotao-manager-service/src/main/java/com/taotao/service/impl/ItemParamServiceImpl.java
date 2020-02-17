@@ -1,10 +1,11 @@
 package com.taotao.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.taotao.mapper.TbItemCatMapper;
 import com.taotao.mapper.TbItemParamItemMapper;
 import com.taotao.mapper.TbItemParamMapper;
-import com.taotao.pojo.TaotaoResult;
-import com.taotao.pojo.TbItemParam;
-import com.taotao.pojo.TbItemParamExample;
+import com.taotao.pojo.*;
 import com.taotao.service.ItemParamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,4 +64,36 @@ public class ItemParamServiceImpl implements ItemParamService {
 
         return TaotaoResult.ok();
     }
+
+    /**
+     * 商品规格参数分页查询
+     * @param page
+     * @param rows
+     * @return
+     */
+    @Override
+    public EasyUIDataGridResult getItemParamList(int page, int rows) {
+        //设置分页条件
+        PageHelper.startPage(page, rows);
+        //执行查询
+        TbItemParamExample example = new TbItemParamExample();
+        List<TbItemParam> list = itemParamMapper.selectByExampleWithBLOBs(example);
+
+
+        //取分页信息
+        PageInfo<TbItemParam> pageInfo = new PageInfo<>(list);
+        //返回处理结果
+        EasyUIDataGridResult result = new EasyUIDataGridResult();
+        result.setTotal(pageInfo.getTotal());
+        result.setRows(list);
+        return result;
+    }
+
+    @Override
+    public TaotaoResult deleteItemParam(Long id) {
+        itemParamMapper.deleteByPrimaryKey(id);
+        return TaotaoResult.ok();
+    }
+
+
 }

@@ -23,7 +23,7 @@
 	        </div>
        	</div>
     </div>
-    
+	<script type="text/javascript" src="js/jquery-easyui-1.4.1/jquery.min.js"></script>
     <script type="text/javascript">
     	$("#login").click(function(){
     		var username = $("[name=username]").val();

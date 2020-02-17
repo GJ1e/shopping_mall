@@ -171,5 +171,42 @@ public class ItemServiceImpl implements ItemService {
         return TaotaoResult.ok();
     }
 
+    /**
+     * 根据商品编号，删除商品
+     * @param itemId
+     * @return
+     */
+    @Override
+    public TaotaoResult deleteItem(Long itemId) {
+        //删除商品表
+        itemMapper.deleteByPrimaryKey(itemId);
+        //删除商品描述表
+        itemDescMapper.deleteByPrimaryKey(itemId);
+        //删除商品规格表
+        TbItemParamItemExample example = new TbItemParamItemExample();
+        TbItemParamItemExample.Criteria criteria = example.createCriteria();
+        criteria.andItemIdEqualTo(itemId);
+        itemParamItemMapper.deleteByExample(example);
+
+        return TaotaoResult.ok();
+    }
+
+    /**
+     * 下架商品
+     * @param itemId
+     * @return
+     */
+    @Override
+    public TaotaoResult updateItemStock(Long itemId) {
+        TbItem item = itemMapper.selectByPrimaryKey(itemId);
+        //设置商品状态为下架
+        item.setStatus((byte)2);
+        //设置商品库存
+        item.setNum(0);
+        //更新商品数据
+        itemMapper.updateByPrimaryKey(item);
+        return TaotaoResult.ok();
+    }
+
 
 }

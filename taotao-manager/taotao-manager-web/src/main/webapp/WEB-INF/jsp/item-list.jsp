@@ -150,27 +150,29 @@
         	    }
         	});
         }
-    },{
-        text:'上架',
-        iconCls:'icon-remove',
-        handler:function(){
-        	var ids = getSelectionsIds();
-        	if(ids.length == 0){
-        		$.messager.alert('提示','未选中商品!');
-        		return ;
-        	}
-        	$.messager.confirm('确认','确定上架ID为 '+ids+' 的商品吗？',function(r){
-        	    if (r){
-        	    	var params = {"ids":ids};
-                	$.post("/rest/item/reshelf",params, function(data){
-            			if(data.status == 200){
-            				$.messager.alert('提示','上架商品成功!',undefined,function(){
-            					$("#itemList").datagrid("reload");
-            				});
-            			}
-            		});
-        	    }
-        	});
-        }
-    }];
+    },
+        // {
+        //     text: '上架',
+        //     iconCls: 'icon-remove',
+        //     handler: function () {
+        //         var ids = getSelectionsIds();
+        //         if (ids.length == 0) {
+        //             $.messager.alert('提示', '未选中商品!');
+        //             return;
+        //         }
+        //         $.messager.confirm('确认', '确定上架ID为 ' + ids + ' 的商品吗？', function (r) {
+        //             if (r) {
+        //                 var params = {"ids": ids};
+        //                 $.post("/rest/item/reshelf", params, function (data) {
+        //                     if (data.status == 200) {
+        //                         $.messager.alert('提示', '上架商品成功!', undefined, function () {
+        //                             $("#itemList").datagrid("reload");
+        //                         });
+        //                     }
+        //                 });
+        //             }
+        //         });
+        //     }
+        // }
+    ];
 </script>

@@ -23,8 +23,12 @@ public interface ItemService {
 
     //根据商品ID查询商品规格
     TaotaoResult getItemParamById(Long itemId);
-
+    //根据商品ID更新商品
     TaotaoResult updateItem(TbItem item,String desc, String itemParam);
+    //根据商品ID删除商品
+    TaotaoResult deleteItem(Long itemId);
+    //根据商品ID下架商品
+    TaotaoResult updateItemStock(Long itemId);
 
 
 }

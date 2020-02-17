@@ -55,7 +55,33 @@ var TT = TAOTAO = {
         	return '未知';
         }
     },
-    
+	// 格式化订单支付的类型
+	formatOrderPaymentType : function formatStatus(val,row){
+        if (val == 1){
+            return '在线支付';
+        } else if(val == 2){
+        	return '<span style="color:red;">货到付款</span>';
+        } else {
+        	return '未知';
+        }
+    },
+	// 格式化订单的状态
+	formatOrderStatus : function formatStatus(val,row){
+        if (val == 1){
+            return '<span style="color:red;">未付款</span>';
+        } else if(val == 2){
+        	return '已付款';
+        } else if(val == 3){
+			return '<span style="color:red;">未发货</span>';
+        } else if(val == 4){
+			return '已发货';
+		} else if(val == 5){
+			return '<span style="color:red;">交易成功</span>';
+		} else if(val == 6){
+			return '交易关闭';
+		}
+    },
+
     init : function(data){
     	// 初始化图片上传组件
     	this.initPicUpload(data);
