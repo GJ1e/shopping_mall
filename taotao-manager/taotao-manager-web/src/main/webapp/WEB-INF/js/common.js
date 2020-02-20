@@ -31,8 +31,12 @@ var TT = TAOTAO = {
 	},
 	// 格式化时间
 	formatDateTime : function(val,row){
-		var now = new Date(val);
-    	return now.format("yyyy-MM-dd hh:mm:ss");
+		if (val == null) {
+			return val;
+		}else {
+			var now = new Date(val);
+			return now.format("yyyy-MM-dd hh:mm:ss");
+		}
 	},
 	// 格式化连接
 	formatUrl : function(val,row){
@@ -43,7 +47,7 @@ var TT = TAOTAO = {
 	},
 	// 格式化价格
 	formatPrice : function(val,row){
-		return (val/1000).toFixed(2);
+		return (val/100).toFixed(2);
 	},
 	// 格式化商品的状态
 	formatItemStatus : function formatStatus(val,row){
@@ -74,7 +78,7 @@ var TT = TAOTAO = {
         } else if(val == 3){
 			return '<span style="color:red;">未发货</span>';
         } else if(val == 4){
-			return '已发货';
+			return '<span style="color:greenyellow;">已发货</span>';
 		} else if(val == 5){
 			return '<span style="color:red;">交易成功</span>';
 		} else if(val == 6){

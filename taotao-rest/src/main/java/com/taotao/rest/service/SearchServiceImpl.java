@@ -60,6 +60,38 @@ public class SearchServiceImpl implements SearchService {
 
         return result;
     }
+
+    @Override
+    public SearchResult searchItemByCid(Long itemCid, int page, int rows) throws Exception {
+        PageHelper.startPage(page,rows);
+        TbItemExample example = new TbItemExample();
+        TbItemExample.Criteria criteria = example.createCriteria();
+        criteria.andCidEqualTo(itemCid);
+        List<TbItem> itemList = itemMapper.selectByExample(example);
+        List<SearchItem> searchItemList = new ArrayList<>();
+        for (TbItem tbItem:itemList) {
+            SearchItem item = new SearchItem();
+            item.setTitle(tbItem.getTitle());
+            item.setSell_point(tbItem.getSellPoint());
+            item.setPrice(tbItem.getPrice());
+            item.setId(tbItem.getId().toString());
+            item.setImage(tbItem.getImage());
+            searchItemList.add(item);
+        }
+        SearchResult result = new SearchResult();
+        result.setList(searchItemList);
+        PageInfo<TbItem> pageInfo = new PageInfo<>(itemList);
+        result.setRecordCount(pageInfo.getTotal());
+        Long recordCount = result.getRecordCount();
+        int pageCount = (int) (recordCount / rows);
+        if (recordCount % rows > 0) {
+            pageCount++;
+        }
+        result.setPageCount(pageCount);
+        result.setCurPage(page);
+
+        return result;
+    }
 //    @Override
 //    public SearchResult search(String queryString, int page, int rows) throws Exception {
 //        //创建查询条件

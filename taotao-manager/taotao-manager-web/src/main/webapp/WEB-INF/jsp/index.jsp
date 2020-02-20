@@ -45,6 +45,7 @@
          		<span>订单管理</span>
          		<ul>
 	         		<li data-options="attributes:{'url':'order-list'}">订单列表</li>
+	         		<li data-options="attributes:{'url':'order-detail'}">订单详情</li>
 	         	</ul>
          	</li>
          </ul>

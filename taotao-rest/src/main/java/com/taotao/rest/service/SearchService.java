@@ -11,6 +11,7 @@ import com.taotao.rest.pojo.SearchResult;
 
 public interface SearchService {
     SearchResult search(String queryString, int page, int rows) throws Exception;
+    SearchResult searchItemByCid(Long itemCid, int page, int rows) throws Exception;
 
 
 //    public List<TbItem> getTitleLike(String title){

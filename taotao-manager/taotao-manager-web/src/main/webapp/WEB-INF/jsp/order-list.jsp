@@ -11,12 +11,11 @@
     <thead>
     <tr>
         <th data-options="field:'ck',checkbox:true"></th>
-        <th data-options="field:'orderId',width:70">订单号</th>
+        <th data-options="field:'orderId',width:70">订单ID</th>
         <th data-options="field:'userId',width:70">用户ID</th>
         <th data-options="field:'paymentType',width:70,align:'center',formatter:TAOTAO.formatOrderPaymentType">支付类型</th>
         <th data-options="field:'payment',width:70,align:'right'">实付金额</th>
         <th data-options="field:'status',width:70,align:'center',formatter:TAOTAO.formatOrderStatus">订单状态</th>
-
         <th data-options="field:'buyerMessage',width:170">买家留言</th>
         <th data-options="field:'shippingName',width:70">物流名称</th>
         <th data-options="field:'shippingCode',width:120">物流单号</th>
@@ -26,14 +25,17 @@
     </tr>
     </thead>
 </table>
-<script type="text/javascript">
+<div id="orderEditWindow" class="easyui-window" title="编辑订单" data-options="modal:true,closed:true,iconCls:'icon-save',href:'/order-edit'" style="width:80%;height:80%;padding:10px;">
+</div>
+<script>
+
 
     function getSelectionsIds() {
-        var orderList = $("#orderList");
-        var sels = orderList.datagrid("getSelections");
+        var itemList = $("#orderList");
+        var sels = itemList.datagrid("getSelections");
         var ids = [];
         for (var i in sels) {
-            ids.push(sels[i].id);
+            ids.push(sels[i].orderId);
         }
         ids = ids.join(",");
         return ids;
@@ -52,6 +54,12 @@
                 $.messager.alert('提示','只能选择一个订单!');
                 return ;
             }
+            $("#orderEditWindow").window({
+                onLoad :function(){
+                    var data = $("#orderList").datagrid("getSelections")[0];
+                    $("#orderEditForm").form("load",data);
+                }
+            }).window("open");
 
         }
     },
@@ -61,16 +69,16 @@
             handler:function(){
                 var ids = getSelectionsIds();
                 if(ids.length == 0){
-                    $.messager.alert('提示','未选中商品!');
+                    $.messager.alert('提示','未选中订单!');
                     return ;
                 }
-                $.messager.confirm('确认','确定删除ID为 '+ids+' 的商品吗？',function(r){
+                $.messager.confirm('确认','确定删除ID为 '+ids+' 的订单吗？',function(r){
                     if (r){
                         var params = {"ids":ids};
                         $.post("/order/delete",params, function(data){
                             if(data.status == 200){
                                 $.messager.alert('提示','删除商品成功!',undefined,function(){
-                                    $("#itemList").datagrid("reload");
+                                    $("#orderList").datagrid("reload");
                                 });
                             }
                         });
@@ -78,8 +86,8 @@
                 });
             }
 
-        },
+        }
 
-    ]
+    ];
 
 </script>

@@ -1,11 +1,10 @@
 package com.taotao.rest.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.taotao.mapper.TbContentMapper;
 import com.taotao.mapper.TbItemMapper;
-import com.taotao.pojo.TaotaoResult;
-import com.taotao.pojo.TbContent;
-import com.taotao.pojo.TbContentExample;
-import com.taotao.pojo.TbItemExample;
+import com.taotao.pojo.*;
 import com.taotao.rest.component.JedisClient;
 import com.taotao.utils.JsonUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -13,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -63,6 +63,32 @@ public class ContentServiceImpl implements ContentService {
 //            e.printStackTrace();
 //        }
         return list;
+    }
+
+    /**
+     * 获取楼数据
+     * @param categoryId
+     * @param page
+     * @param rows
+     * @return
+     */
+    @Override
+    public EasyUIDataGridResult getIndexData(Long categoryId, int page, int rows) {
+        //设置分页条件
+        PageHelper.startPage(page, rows);
+        //执行查询
+        TbContentExample example = new TbContentExample();
+        TbContentExample.Criteria criteria = example.createCriteria();
+        criteria.andCategoryIdEqualTo(categoryId);
+        List<TbContent> list = contentMapper.selectByExampleWithBLOBs(example);
+
+        //取分页信息
+        PageInfo<TbContent> pageInfo = new PageInfo<>(list);
+        //返回处理结果
+        EasyUIDataGridResult result = new EasyUIDataGridResult();
+        result.setTotal(pageInfo.getTotal());
+        result.setRows(list);
+        return result;
     }
 
     /**

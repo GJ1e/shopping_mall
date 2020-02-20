@@ -143,6 +143,13 @@ public class ItemServiceImpl implements ItemService {
         return TaotaoResult.ok();
     }
 
+    /**
+     * 商品更新
+     * @param item
+     * @param desc
+     * @param itemParam
+     * @return
+     */
     @Override
     public TaotaoResult updateItem(TbItem item, String desc, String itemParam) {
         //更新商品数据

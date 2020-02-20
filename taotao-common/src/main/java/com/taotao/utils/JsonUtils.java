@@ -1,6 +1,9 @@
 package com.taotao.utils;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Stack;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
@@ -14,6 +17,14 @@ public class JsonUtils {
     // 定义jackson对象
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
+    private Map<String , Object> map = new HashMap<String, Object>();
+
+    private JsonUtils(){
+
+    }
+    public static JsonUtils getInstance(){
+        return new JsonUtils();
+    }
     /**
      * 将对象转换成json字符串。
      * <p>Title: pojoToJson</p>
@@ -35,7 +46,7 @@ public class JsonUtils {
      * 将json结果集转化为对象
      * 
      * @param jsonData json数据
-     * @param clazz 对象中的object类型
+     * @param beanType 对象中的object类型
      * @return
      */
     public static <T> T jsonToPojo(String jsonData, Class<T> beanType) {
@@ -66,6 +77,28 @@ public class JsonUtils {
 		}
     	
     	return null;
+    }
+
+    public static JsonUtils start(String key, Object value){
+        return getInstance().put(key, value);
+    }
+
+    public JsonUtils put(String key, Object value){
+        this.map.put(key, value);
+        return this;
+    }
+
+    public Map<String,Object> get(){
+        return this.map;
+    }
+
+    public String mapToJson(){
+        try{
+            return MAPPER.writeValueAsString(this.map);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
     
 }

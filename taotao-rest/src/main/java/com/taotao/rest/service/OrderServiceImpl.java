@@ -1,19 +1,21 @@
 package com.taotao.rest.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.taotao.mapper.TbOrderItemMapper;
 import com.taotao.mapper.TbOrderMapper;
 import com.taotao.mapper.TbOrderShippingMapper;
-import com.taotao.pojo.TaotaoResult;
-import com.taotao.pojo.TbOrder;
-import com.taotao.pojo.TbOrderItem;
-import com.taotao.pojo.TbOrderShipping;
+import com.taotao.pojo.*;
 import com.taotao.rest.component.JedisClient;
 import com.taotao.rest.pojo.OrderInfo;
+import com.taotao.rest.pojo.OrderItemsShipping;
+import com.taotao.rest.pojo.SearchOrderResult;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -60,7 +62,7 @@ public class OrderServiceImpl implements OrderService{
 //        3、补全字段
         orderInfo.setOrderId(orderId.toString());
         //状态：1、未付款，2、已付款，3、未发货，4、已发货，5、交易成功，6、交易关闭
-        orderInfo.setStatus(1);
+        orderInfo.setStatus(2);
         Date date = new Date();
         orderInfo.setCreateTime(date);
         orderInfo.setUpdateTime(date);
@@ -88,5 +90,56 @@ public class OrderServiceImpl implements OrderService{
 //        四、返回TaotaoResult包装订单号。
         return TaotaoResult.ok(orderId);
 
+    }
+
+    @Override
+    public SearchOrderResult getOrderByUsername(String username, int page, int rows) {
+        PageHelper.startPage(page,rows);
+        List<OrderItemsShipping> orderItemsShippingList = new ArrayList<>();
+        TbOrderExample orderExample = new TbOrderExample();
+        TbOrderExample.Criteria orderCriteria = orderExample.createCriteria();
+        orderCriteria.andBuyerNickEqualTo(username);
+        List<TbOrder> orderList = orderMapper.selectByExample(orderExample);
+        PageInfo<TbOrder> pageInfo = new PageInfo<>(orderList);
+        //写入封装数据
+        for (TbOrder order:orderList) {
+            OrderItemsShipping orderItemsShipping = new OrderItemsShipping();
+            orderItemsShipping.setOrderId(order.getOrderId());
+            orderItemsShipping.setPayment(order.getPayment());
+            orderItemsShipping.setPaymentType(order.getPaymentType());
+            orderItemsShipping.setStatus(order.getStatus());
+            orderItemsShipping.setCreateTime(order.getCreateTime());
+            orderItemsShipping.setCloseTime(order.getCloseTime());
+            orderItemsShipping.setUserId(order.getUserId());
+            orderItemsShipping.setBuyerNick(order.getBuyerNick());
+
+            //查询订单商品表
+            String orderId = orderItemsShipping.getOrderId();
+            TbOrderItemExample orderItemExample = new TbOrderItemExample();
+            TbOrderItemExample.Criteria orderItemCriteria = orderItemExample.createCriteria();
+            orderItemCriteria.andOrderIdEqualTo(orderId);
+            List<TbOrderItem> orderItemList = orderItemMapper.selectByExample(orderItemExample);
+            //写入订单商品表封装数据
+            orderItemsShipping.setOrderItemList(orderItemList);
+            //查询物流表
+            TbOrderShippingExample orderShippingExample = new TbOrderShippingExample();
+            TbOrderShippingExample.Criteria orderShippingCriteria = orderShippingExample.createCriteria();
+            orderShippingCriteria.andOrderIdEqualTo(orderId);
+            List<TbOrderShipping> orderShippingList = orderShippingMapper.selectByExample(orderShippingExample);
+            //封装物流表数据
+            orderItemsShipping.setOrderShippingList(orderShippingList);
+            orderItemsShippingList.add(orderItemsShipping);
+        }
+        SearchOrderResult searchOrderResult = new SearchOrderResult();
+        searchOrderResult.setData(orderItemsShippingList);
+        searchOrderResult.setRecordCount(pageInfo.getTotal());
+        Long recordCount = searchOrderResult.getRecordCount();
+        int pageCount = (int) (recordCount / rows);
+        if (recordCount % rows > 0) {
+            pageCount++;
+        }
+        searchOrderResult.setPageCount(pageCount);
+        searchOrderResult.setCurPage(page);
+        return searchOrderResult;
     }
 }

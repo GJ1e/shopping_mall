@@ -1,11 +1,16 @@
 package com.taotao.portal.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.taotao.pojo.TaotaoResult;
 import com.taotao.portal.pojo.OrderInfo;
+import com.taotao.portal.pojo.SearchOrderResult;
 import com.taotao.utils.HttpClientUtil;
 import com.taotao.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Author GJ1e
@@ -17,8 +22,14 @@ import org.springframework.stereotype.Service;
 public class OrderServiceImpl implements OrderService {
     @Value("${REST_BASE_URL}")
     private String REST_BASE_URL;
+
     @Value("${ORDER_CREATE_URL}")
     private String ORDER_CREATE_URL;
+
+    @Value("${ORDER_QUERY_URL}")
+    private String ORDER_QUERY_URL;
+
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     @Override
     public String creatOrder(OrderInfo orderInfo) {
@@ -31,5 +42,21 @@ public class OrderServiceImpl implements OrderService {
         //取订单号
         String orderId = taotaoResult.getData().toString();
         return orderId;
+    }
+
+    @Override
+    public Map<String,Object> getOrderList(String buyerNick, int page, int rows) {
+        try {
+            String jsonData = HttpClientUtil.doGet(REST_BASE_URL+ORDER_QUERY_URL+buyerNick+"/"+page+"/"+rows);
+            if (jsonData == null){
+                return new HashMap<String,Object>(0);
+            }
+            return MAPPER.readValue(jsonData,Map.class);
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("调用订单分页查询服务，获取数据异常");
+        }
+        return new HashMap<String,Object>(0);
+
     }
 }
