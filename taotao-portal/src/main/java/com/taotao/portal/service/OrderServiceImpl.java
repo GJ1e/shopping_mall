@@ -2,14 +2,17 @@ package com.taotao.portal.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.taotao.pojo.TaotaoResult;
+import com.taotao.pojo.TbOrderItem;
 import com.taotao.portal.pojo.OrderInfo;
 import com.taotao.portal.pojo.SearchOrderResult;
+import com.taotao.utils.ExceptionUtil;
 import com.taotao.utils.HttpClientUtil;
 import com.taotao.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,6 +31,15 @@ public class OrderServiceImpl implements OrderService {
 
     @Value("${ORDER_QUERY_URL}")
     private String ORDER_QUERY_URL;
+
+    @Value("${ORDER_DELETE_URL}")
+    private String ORDER_DELETE_URL;
+
+    @Value("${ORDER_QUERY_ITEM_URL}")
+    private String ORDER_QUERY_ITEM_URL;
+
+    @Value("${ORDER_RECEIVE_URL}")
+    private String ORDER_RECEIVE_URL;
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
@@ -59,4 +71,55 @@ public class OrderServiceImpl implements OrderService {
         return new HashMap<String,Object>(0);
 
     }
+
+    /**
+     * 删除订单
+     * @param orderId
+     * @return
+     */
+    @Override
+    public TaotaoResult deleteOrderByOrderId(String orderId) {
+        try {
+            String jsonData = HttpClientUtil.doGet(REST_BASE_URL+ORDER_DELETE_URL+orderId);
+            return TaotaoResult.ok(jsonData);
+        }catch (Exception e){
+            e.printStackTrace();
+            return TaotaoResult.build(500, ExceptionUtil.getStackTrace(e));
+        }
+
+    }
+
+    /**
+     * 根据订单号查询订单商品详情
+     * @param orderId
+     * @return
+     */
+    @Override
+    public List<TbOrderItem> getOrderItemByOrderId(String orderId) {
+        try {
+            String jsonData = HttpClientUtil.doGet(REST_BASE_URL+ORDER_QUERY_ITEM_URL+orderId);
+            List<TbOrderItem> list = JsonUtils.jsonToList(jsonData,TbOrderItem.class);
+            return list;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 确认收货
+     * @param orderId
+     * @return
+     */
+    @Override
+    public TaotaoResult receiveOrderItem(String orderId) {
+        try{
+            String jsonData = HttpClientUtil.doGet(REST_BASE_URL+ORDER_RECEIVE_URL+orderId);
+            return TaotaoResult.ok(jsonData);
+        }catch (Exception e){
+            e.printStackTrace();
+            return TaotaoResult.build(500,ExceptionUtil.getStackTrace(e));
+        }
+    }
+
 }

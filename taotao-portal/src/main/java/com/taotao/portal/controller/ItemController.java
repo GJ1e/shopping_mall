@@ -1,6 +1,8 @@
 package com.taotao.portal.controller;
 
 import com.taotao.pojo.TbItem;
+import com.taotao.pojo.TbItemComment;
+import com.taotao.portal.service.ItemCommentService;
 import com.taotao.portal.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -9,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 
 /**
@@ -21,10 +25,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ItemController {
     @Autowired
     ItemService itemService;
+    @Autowired
+    ItemCommentService itemCommentService;
 
     @RequestMapping("/item/{itemId}")
     public String showItemInfo(@PathVariable Long itemId, Model model){
         TbItem item = itemService.getItemById(itemId);
+        List<TbItemComment> commentList =  itemCommentService.getItemCommentList(itemId);
+        model.addAttribute("commentList",commentList);
         model.addAttribute("item",item);
         return "item";
     }

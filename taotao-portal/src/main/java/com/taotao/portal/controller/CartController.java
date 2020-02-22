@@ -31,6 +31,7 @@ public class CartController {
     public String addCart(@PathVariable Long itemId, Integer num,
                           HttpServletRequest request, HttpServletResponse response){
         TaotaoResult result = cartService.addCart(itemId,num,request,response);
+
         return "cart-success";
     }
 

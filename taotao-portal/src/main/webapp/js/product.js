@@ -1049,8 +1049,10 @@ var Refresh = {init: function() {
                         onlineService(3, a, i.chatDomain)
                     }))
             }
-        }, $.getJSONP("http://club.jd.com/clubservice/newconsulation-" + G.orginSku + "-" + (t + 1) + ".html?callback=fetchJSON_Consult")
-    },setExtraData: function(t, e) {
+        },
+            $.getJSONP("http://club.jd.com/clubservice/newconsulation-" + G.orginSku + "-" + (t + 1) + ".html?callback=fetchJSON_Consult")
+    },
+    setExtraData: function(t, e) {
         $.jmsajax({url: "/newsserver.asmx",method: "PayExplain",data: {id: "A-product-0" + (t - 3)},success: function(i) {
                 if (null != i) {
                     var s = pageConfig.compatible && pageConfig.wideVersion ? 770 : 1450;

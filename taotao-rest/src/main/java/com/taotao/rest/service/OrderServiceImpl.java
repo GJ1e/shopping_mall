@@ -142,4 +142,49 @@ public class OrderServiceImpl implements OrderService{
         searchOrderResult.setCurPage(page);
         return searchOrderResult;
     }
+
+    /**
+     * 删除订单
+     * @param orderId
+     * @return
+     */
+    @Override
+    public TaotaoResult deleteOrderByOrderId(String orderId) {
+        //删除订单表中信息
+        orderMapper.deleteByPrimaryKey(orderId);
+        //删除订单商品表信息
+        TbOrderItemExample example = new TbOrderItemExample();
+        TbOrderItemExample.Criteria criteria = example.createCriteria();
+        criteria.andOrderIdEqualTo(orderId);
+        orderItemMapper.deleteByExample(example);
+        //删除物流表中的信息
+        orderShippingMapper.deleteByPrimaryKey(orderId);
+
+        return TaotaoResult.ok();
+    }
+
+    /**
+     * 根据订单号查询订单商品详情
+     * @param orderId
+     * @return
+     */
+    @Override
+    public List<TbOrderItem> getOrderItemByOrderId(String orderId) {
+        TbOrderItemExample example = new TbOrderItemExample();
+        TbOrderItemExample.Criteria criteria = example.createCriteria();
+        criteria.andOrderIdEqualTo(orderId);
+        List<TbOrderItem> list = orderItemMapper.selectByExample(example);
+        return list;
+    }
+
+    @Override
+    public TaotaoResult receiveOrderItem(String orderId) {
+        TbOrder order = orderMapper.selectByPrimaryKey(orderId);
+        //状态：1、未付款，2、已付款，3、未发货，4、已发货，5、交易成功，6、交易关闭
+        order.setStatus(5);
+        order.setEndTime(new Date());
+        order.setUpdateTime(new Date());
+        orderMapper.updateByPrimaryKey(order);
+        return TaotaoResult.ok();
+    }
 }

@@ -87,8 +87,8 @@
 		        </div>
 	        </div> 
         </c:forEach>
-        
-    </div><!-- product-list结束 -->
+    </div>
+    <!-- product-list结束 -->
           <div class="cart-toolbar clearfix">
             <div class="total fr">
                 <p><span class="totalSkuPrice">¥<fmt:formatNumber value="${totalPrice / 100}" maxFractionDigits="2" minFractionDigits="2" groupingUsed="true"/></span>总计：</p>
@@ -114,7 +114,7 @@
               <span class="shopping">
                   <b>
                   </b>
-                  <a href="localhost:8082" target="_blank" clstag="clickcart|keycount|xincart|coudanlink" id="continue">继续购物</a>
+                  <a href="http://localhost:8082/" target="_blank" clstag="clickcart|keycount|xincart|coudanlink" id="continue">继续购物</a>
               </span>
           </div>
           <div class="cart-total-2014">

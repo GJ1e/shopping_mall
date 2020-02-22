@@ -126,10 +126,9 @@
                 <span class="tcol1">
                     订单编号:
                     <a name="orderIdLinks" id="idUrl2538292730" target="_blank"
-                       href="http://order.jd.com/normal/item.action?orderid=2538292730&amp;PassKey=769448C6BA99F1ADA8244BAE7BC60580"
-                       clstag="click|keycount|orderinfo|order_num">${order.orderId}</a>
+                       href="无" clstag="click|keycount|orderinfo|order_num">${order.orderId}</a>
 
-		    		                </span>
+		    	</span>
 
                                         <span class="tcol2">
                         鲜果益客
@@ -195,19 +194,19 @@
 
                                         <span class="pop-recycle-a">
                                             <a
-                                            href="javascript:void(0)" clstag="click|keycount|orderinfo|order_del"
-                                            onclick="">删除
+                                            href="/order/deleteOrder/${order.orderId}.html"clstag="click|keycount|orderinfo|order_del"
+                                            onclick="" >删除
                                             </a>
                                         </span>
                                         <span id="doi2538292730"><br>
                                             <a
-                                            href="待补充"
+                                            href="/order/query/orderItem/${order.orderId}.html"
                                             target="_blank" clstag="click|keycount|orderinfo|order_comment">评价晒单
                                             </a><br>
                                         </span>
                                         <a
-                                            href="待完善"
-                                            target="_blank" clstag="click|keycount|orderinfo|order_repair">退换货
+                                            href="/order/receive/orderitem/${order.orderId}.html" onclick=""
+                                            clstag="click|keycount|orderinfo|order_repair">确认收货
                                         </a>
                                         <a class="btn-again" clstag="click|keycount|orderlist|buy"
                                            href="http://localhost:8082/"
@@ -342,9 +341,11 @@
             b = 1
         }
         window.location = "/order/myOrder.html?page=" + b;
-    }
+    };
 </script>
+<script type="text/javascript">
 
+</script>
 <!-- footer start -->
 <jsp:include page="commons/footer.jsp"/>
 <!-- footer end -->

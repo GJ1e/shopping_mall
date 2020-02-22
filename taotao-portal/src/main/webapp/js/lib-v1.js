@@ -1380,22 +1380,23 @@ var category = {OBJ: $("#_JD_ALLSORT"),
                     }, 6e4), /\[\{/.test(e) ? UC.FN_InitVList(e) : UC.FN_InitNewVList(e), UC.FN_InitOList()
                 }
             }})
-    }), document.onkeyup = function(a) {
-        var b = document.activeElement.tagName.toLowerCase();
-        if ("input" != b && "textarea" != b) {
-            var a = a ? a : window.event, c = a.keyCode || a.which;
-            switch (c) {
-                case 68:
-                    window.pageConfig.clientViewTop || (window.pageConfig.clientViewTop = 0), window.pageConfig.clientViewTop += document.documentElement.clientHeight, window.scrollTo(0, pageConfig.clientViewTop);
-                    break;
-                case 83:
-                    window.scrollTo(0, 0), window.pageConfig.clientViewTop = 0, document.getElementById("key").focus();
-                    break;
-                case 84:
-                    window.scrollTo(0, 0), window.pageConfig.clientViewTop = 0
-            }
-        }
-    }
+    })
+    //     document.onkeyup = function(a) {
+    //     var b = document.activeElement.tagName.toLowerCase();
+    //     if ("input" != b && "textarea" != b) {
+    //         var a = a ? a : window.event, c = a.keyCode || a.which;
+    //         switch (c) {
+    //             case 68:
+    //                 window.pageConfig.clientViewTop || (window.pageConfig.clientViewTop = 0), window.pageConfig.clientViewTop += document.documentElement.clientHeight, window.scrollTo(0, pageConfig.clientViewTop);
+    //                 break;
+    //             case 83:
+    //                 window.scrollTo(0, 0), window.pageConfig.clientViewTop = 0, document.getElementById("key").focus();
+    //                 break;
+    //             case 84:
+    //                 window.scrollTo(0, 0), window.pageConfig.clientViewTop = 0
+    //         }
+    //     }
+    // }
 }();
 var $o = function() {
 //    function a() {

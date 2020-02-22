@@ -10,6 +10,10 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" type="text/css" href="/css/taotao.css" media="all" />
 	<link rel="stylesheet" type="text/css" href="/css/pshow.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="/css/base.css" media="all"/>
+	<link rel="stylesheet" type="text/css" href="/css/myjd.common.css" media="all"/>
+	<link rel="stylesheet" type="text/css" href="/css/myjd.order.css" media="all"/>
+	<link rel="stylesheet" type="text/css" href="/css/psearch20131008.css" media="all" />
 	<script type="text/javascript">
     	window.pageConfig = {
 			compatible: true,
@@ -35,13 +39,13 @@
 	</script>
 </head>
 <body version="140120">
-<script type="text/javascript">try{(function(flag){ if(!flag){return;} if(window.location.hash == '#m'){var exp = new Date();exp.setTime(exp.getTime() + 30 * 24 * 60 * 60 * 1000);document.cookie = "pcm=1;expires=" + exp.toGMTString() + ";path=/;domain=jd.com";return;}else{var cook=document.cookie.match(new RegExp("(^| )pcm=([^;]*)(;|$)"));var flag=false;if(cook&&cook.length>2&&unescape(cook[2])=="1"){flag=true;}} var userAgent = navigator.userAgent; if(userAgent){ userAgent = userAgent.toUpperCase();if(userAgent.indexOf("PAD")>-1){return;} var mobilePhoneList = ["IOS","IPHONE","ANDROID","WINDOWS PHONE"];for(var i=0,len=mobilePhoneList.length;i<len;i++){ if(userAgent.indexOf(mobilePhoneList[i])>-1){var url="http://m.jd.com/product/"+pageConfig.product.skuid+".html";if(flag){pageConfig.product.showtouchurl=true;}else{window.location.href = url;}break;}}}})((function(){var json={"6881":3,"1195":3,"10011":3,"6980":3,"12360":3};if(json[pageConfig.product.cat[0]+""]==1||json[pageConfig.product.cat[1]+""]==2||json[pageConfig.product.cat[2]+""]==3){return false;}else{return true;}})());}catch(e){}</script>
+<%--<script type="text/javascript">try{(function(flag){ if(!flag){return;} if(window.location.hash == '#m'){var exp = new Date();exp.setTime(exp.getTime() + 30 * 24 * 60 * 60 * 1000);document.cookie = "pcm=1;expires=" + exp.toGMTString() + ";path=/;domain=jd.com";return;}else{var cook=document.cookie.match(new RegExp("(^| )pcm=([^;]*)(;|$)"));var flag=false;if(cook&&cook.length>2&&unescape(cook[2])=="1"){flag=true;}} var userAgent = navigator.userAgent; if(userAgent){ userAgent = userAgent.toUpperCase();if(userAgent.indexOf("PAD")>-1){return;} var mobilePhoneList = ["IOS","IPHONE","ANDROID","WINDOWS PHONE"];for(var i=0,len=mobilePhoneList.length;i<len;i++){ if(userAgent.indexOf(mobilePhoneList[i])>-1){var url="http://m.jd.com/product/"+pageConfig.product.skuid+".html";if(flag){pageConfig.product.showtouchurl=true;}else{window.location.href = url;}break;}}}})((function(){var json={"6881":3,"1195":3,"10011":3,"6980":3,"12360":3};if(json[pageConfig.product.cat[0]+""]==1||json[pageConfig.product.cat[1]+""]==2||json[pageConfig.product.cat[2]+""]==3){return false;}else{return true;}})());}catch(e){}</script>--%>
 <!-- header start -->
 <jsp:include page="commons/header.jsp" />
 <!-- header end -->
 <div class="w">
 	<div class="breadcrumb">
-		<strong><a href="http://channel.jd.com/electronic.html">家用电器</a></strong><span>&nbsp;&gt;&nbsp;<a href="http://channel.jd.com/737-794.html" >大 家 电</a>&nbsp;&gt;&nbsp;<a href="http://list.jd.com/737-794-798.html" >平板电视</a>&nbsp;&gt;&nbsp;</span><script type="text/javascript">pageConfig.product.cat=[737,794,798];</script><span><a href="http://www.jd.com/pinpai/798-20710.html" >长虹（CHANGHONG）</a>&nbsp;&gt;&nbsp;<a href="http://item.jd.com/1221882.html" >长虹LED42538ES</a></span>
+<%--		<strong><a href="http://channel.jd.com/electronic.html" ></a></strong><span>&nbsp;&gt;&nbsp;<a href="http://channel.jd.com/737-794.html" >大 家 电</a>&nbsp;&gt;&nbsp;<a href="http://list.jd.com/737-794-798.html" >平板电视</a>&nbsp;&gt;&nbsp;</span><span><a href="http://www.jd.com/pinpai/798-20710.html" >长虹（CHANGHONG）</a>&nbsp;&gt;&nbsp;<a href="http://item.jd.com/1221882.html" >长虹LED42538ES</a></span>--%>
 	</div>
 </div><!--breadcrumb end-->
 <div class="w">
@@ -55,7 +59,7 @@
 <script type="text/javascript">pageConfig.product.marketPrice='';</script>
 <ul id="summary">
 	<li id="summary-price">
-		<div class="dt">淘&nbsp;淘&nbsp;价：</div>
+		<div class="dt">鲜&nbsp;果&nbsp;价：</div>
 		<div class="dd">
 			<strong class="p-price"  id="jd-price">￥<fmt:formatNumber groupingUsed="false" maxFractionDigits="2" minFractionDigits="2" value="${item.price / 100 }"/> </strong>
 			<a id="notice-downp" href="#none" target="_blank" clstag="shangpin|keycount|product|jiangjia">(降价通知)</a>
@@ -65,61 +69,28 @@
 	<li id="summary-grade">
 		<div class="dt">商品评分：</div>
 		<div class="dd">
-			<span class="star  sa0"></span>
+			<span class="star  sa4"></span>
 			<a href="#comment"></a>
 		</div>
 	</li><!-- 商品评分-->
-	<li id="summary-stock" style="display: none;">
-		<div class="dt">配&nbsp;送&nbsp;至：</div>
-		<div class="dd">
-			<div id="store-selector" class="">
-				<div class="text"><div></div><b></b></div>
-				<div class="content">			
-					<span class="clr"></span>
-				</div>
-				<div class="close" onclick="$('#store-selector').removeClass('hover')"></div>
-			</div><!--store-selector end-->
-			<div id="store-prompt"></div><!--store-prompt end--->
-		</div>
-		<span class="clr"></span>
-	</li>
+
 	<li id="summary-service" class="hide">
 		<div class="dt">服&#x3000;&#x3000;务：</div>
-		<div class="dd">由 淘淘 发货并提供售后服务。</div>
+		<div class="dd">由 鲜果益客 发货并提供售后服务。</div>
 	</li>
-	<li id="summary-tips"  class="hide">
-		<div class="dt">温馨提示：</div>
-		<div class="dd"></div>
-	</li>
-	<li id="summary-gifts"  class="hide">
-		<div class="dt">赠&#x3000;&#x3000;品：</div>
-		<div class="dd"></div>
-	</li>
-	<li id="summary-promotion-extra" class="none">
-		<div class="dt">促销信息：</div>
-		<div class="dd"></div>
-	</li>
+
 </ul><!--summary end-->
-		<div id="brand-bar" clstag="shangpin|keycount|product|btn-coll">
-	<dl class="slogens">
-		<dt>淘淘·正品保证</dt>
-		<dd class="fore1">
-			<a target="_blank" href="http://help.360buy.com/help/question-67.html"><b></b><span>货到</span><span>付款</span></a>
-		</dd>
-		<dd class="fore2"></dd>
-		<dd class="fore3"><a target="_blank" href="http://help.360buy.com/help/question-65.html"><b></b><span>满39</span><span>免运费</span></a></dd>
-		<dd class="fore4"></dd>
-		<dd class="fore5"><a target="_blank" href="http://help.360buy.com/help/question-97.html"><b></b><span>售后</span><span>上门</span></a></dd>
-	</dl>
-	 <div class="seller hide">
-		    <p class="seller-link"></p>
-			<p id="evaluate">
-		        <em class="dt">服务评价：</em>
-		        <span class="heart-white"><span class="heart-red h4">&nbsp;</span></span>
-		        <em class="evaluate-grade"></em>
-	        </p>
-	    </div> 
-</div><!--brand-bar-->
+<%--		<div id="brand-bar" clstag="shangpin|keycount|product|btn-coll">--%>
+<%--	 <div class="seller hide">--%>
+<%--		    <p class="seller-link"></p>--%>
+<%--			<p id="evaluate">--%>
+<%--		        <em class="dt">服务评价：</em>--%>
+<%--		        <span class="heart-white"><span class="heart-red h4">&nbsp;</span></span>--%>
+<%--		        <em class="evaluate-grade"></em>--%>
+<%--	        </p>--%>
+<%--	    </div> --%>
+<%--</div>--%>
+			<!--brand-bar-->
 			<ul id="choose" clstag="shangpin|keycount|product|choose">
 				<li id='choose-type'></li><script type="text/javascript"> var ColorSize = [{"SkuId":1221882,"Size":"","Color":""}];</script>
 								<li id="choose-amount">
@@ -201,21 +172,16 @@
 				<ul class="tab">
 	<li clstag="shangpin|keycount|product|pinfotab" data-widget="tab-item" class="curr"><a href="javascript:;" >商品介绍</a></li>
 	<li clstag="shangpin|keycount|product|pcanshutab" data-widget="tab-item"><a href="javascript:;" >规格参数</a></li>
-	<li clstag="shangpin|keycount|product|packlisttab" data-widget="tab-item"><a href="javascript:;" >包装清单</a></li>
-	<li clstag="shangpin|keycount|product|pingjiatab" data-widget="tab-item"><a href="javascript:;" >商品评价</a></li>
-	<li clstag="shangpin|keycount|product|psaleservice" data-widget="tab-item"><a href="javascript:;" >售后保障</a></li>
-	<li clstag="shangpin|keycount|product|zhinan" data-widget='tab-item'><a href='javascript:;'>京博士</a></li>
+	<li clstag="shangpin|keycount|product|packlisttab" data-widget="tab-item"><a href="javascript:;" >商品评价</a></li>
+<%--	<li clstag="shangpin|keycount|product|pingjiatab" data-widget="tab-item"><a href="javascript:;" >商品评价</a></li>--%>
+<%--	<li clstag="shangpin|keycount|product|psaleservice" data-widget="tab-item"><a href="javascript:;" >售后保障</a></li>--%>
 </ul>
 			</div>
 			<div class="mc" data-widget="tab-content" id="product-detail-1">
 				<ul class="detail-list">
-					<li title="长虹LED42538ES">商品名称：长虹LED42538ES</li>
-					<li>商品编号：1221882</li>
-					<li>品牌：<a href="http://www.jd.com/pinpai/798-20710.html" target="_blank">长虹（CHANGHONG）</a></li>
-					<li>上架时间：2014-09-24 15:45:26</li>
-					<li>商品毛重：13.5kg</li>
+					<li title="${item.title}">商品名称：${item.title}</li>
+					<li>商品编号：${item.id}</li>
 					<li>商品产地：中国大陆</li>
-										<li>分辨率：全高清（1920*1080）</li><li>居室场景：卧室电视 ，客厅电视</li><li>品类：LED电视（主流）</li><li>3D：不支持</li><li>功能：普通电视</li><li>尺寸：40-43英寸</li>
 				</ul>
 				<div class="detail-correction">
 					<b></b>如果您发现商品信息不准确，欢迎纠错
@@ -227,10 +193,28 @@
 			<div class="mc hide" data-widget="tab-content" id="product-detail-2">
 				<%-- ${itemParam} --%>
 			</div>
-				<div class="mc  hide" data-widget="tab-content" id="product-detail-3"><div class="item-detail">液晶电视×1、底座×1、遥控器×1、使用说明书×1、电源线×1</div></div><div class="mc  hide" data-widget="tab-content" id="product-detail-4"></div><div class="mc hide " data-widget="tab-content" id="product-detail-5"><div class="item-detail">本产品全国联保，享受三包服务，质保期为：一年质保<br />本产品提供上门安装调试、提供上门检测和维修等售后服务，自收到商品之日起，如您所购买家电商品出现质量问题，请先联系厂家进行检测 ，凭厂商提供的故障检测证明，在“我的淘淘-客户服务-返修退换货”页面提交退换申请，将有专业售后人员提供服务。淘淘承诺您：30天内可为您退货或换货，180天内无需修理直接换货，超过180天按国家三包规定享受服务。<br />您可以查询本品牌在各地售后服务中心的联系方式，<a  class="link_1" href="http://www.changhong.com">请点击这儿查询......</a><br />
-						<br/>售后服务电话：400-811-1666<br/>品牌官方网站：<a href="http://www.changhong.com" target="_blank">http://www.changhong.com</a>
+			<div class="mc  hide" data-widget="tab-content" id="product-detail-3">
+				<div id="itemComman" class="item-detail">
+					<table  width="100%">
+						<thead>
+						<tr>
+							<th width="30%" bgcolor="#f5f5dc">用户昵称</th>
+							<th bgcolor="#f5f5dc">评价详情</th>
+						</tr>
+						<c:forEach items="${commentList}" var="comments">
+						<tr>
+							<th><h2>${comments.username}</h2></th>
+							<th align="left">${comments.comment}</th>
+						</tr>
+						</c:forEach>
+						</thead>
 
-						</div></div><div id="product-detail-6" class="mc hide" data-widget="tab-content"></div>
+					</table>
+
+
+				</div>
+			</div>
+
 			<!--知识库二级标签、标题-->
             <div id="promises">
 	<strong>服务承诺：</strong><br />
@@ -245,10 +229,10 @@
 		</div><!--product-detail end-->
 	</div><!--right end-->
 	
-	<div class="left">
-		<div id="miaozhen7886" class="m"><a href="http://c.nfa.jd.com/adclick?sid=2&amp;cid=163&amp;aid=817&amp;bid=7853&amp;unit=69570&amp;advid=156740&amp;guv=&amp;url=http://sale.jd.com/act/IFkpQYSVnG1Jet.html" target="_blank"><img data-img="2" width="211" height="261" src="http://image.taotao.com/images/2014/10/23/2014102305423212301343.jpg" class="loading-style2"></a></div>
-		<div id="miaozhen7886" class="m"><a href="http://c.nfa.jd.com/adclick?sid=2&amp;cid=163&amp;aid=817&amp;bid=7853&amp;unit=69570&amp;advid=156740&amp;guv=&amp;url=http://sale.jd.com/act/IFkpQYSVnG1Jet.html" target="_blank"><img data-img="2" width="211" height="261" src="http://image.taotao.com/images/2014/10/23/2014102305423212301343.jpg" class="loading-style2"></a></div>
-	</div><!--left end-->
+<%--	<div class="left">--%>
+<%--		<div id="miaozhen7886" class="m"><a href="http://c.nfa.jd.com/adclick?sid=2&amp;cid=163&amp;aid=817&amp;bid=7853&amp;unit=69570&amp;advid=156740&amp;guv=&amp;url=http://sale.jd.com/act/IFkpQYSVnG1Jet.html" target="_blank"><img data-img="2" width="211" height="261" src="http://image.taotao.com/images/2014/10/23/2014102305423212301343.jpg" class="loading-style2"></a></div>--%>
+<%--		<div id="miaozhen7886" class="m"><a href="http://c.nfa.jd.com/adclick?sid=2&amp;cid=163&amp;aid=817&amp;bid=7853&amp;unit=69570&amp;advid=156740&amp;guv=&amp;url=http://sale.jd.com/act/IFkpQYSVnG1Jet.html" target="_blank"><img data-img="2" width="211" height="261" src="http://image.taotao.com/images/2014/10/23/2014102305423212301343.jpg" class="loading-style2"></a></div>--%>
+<%--	</div><!--left end-->--%>
 	<span class="clr"></span>
 </div>
 <!-- footer start -->
@@ -262,7 +246,8 @@
 	var itemControl = {
 			param:{
 				descUrl:"/item/desc/",
-				paramUrl:"/item/param/"
+				paramUrl:"/item/param/",
+				commentUrl:"/item/comment"
 			},
 			//请求商品描述
 			getItemDesc:function(itemId) {
@@ -284,7 +269,21 @@
 						itemControl.haveParam = true;
 					});
 				}
-			}
+			},
+			//参数请求flag
+			// haveComment:false,
+			// //请求规格参数
+			// getItemComment:function(itemId) {
+			// 	//如果没有查询过规格参数，就做请求
+			// 	if (!itemControl.haveComment) {
+			// 		$.get(itemControl.param.commentUrl+itemId+".html", function(data){
+			// 			//返回商品规格的html，直接显示到页面
+			// 			$("#product-detail-4").append(data);
+			// 			//更改flag状态
+			// 			itemControl.haveParam = true;
+			// 		});
+			// 	}
+			// }
 	};
 	$(function(){
 		//取商品id

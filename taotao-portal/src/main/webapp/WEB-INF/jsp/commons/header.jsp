@@ -22,7 +22,7 @@
 		<!--search end-->
 		<div id="my360buy-2013">
 			<dl>
-				<dt class="ld"><s></s><a href="http://localhost:8082/user/page/login" clstag="homepage|keycount|home2012|04a">我的淘淘</a><b></b></dt>
+				<dt class="ld"><s></s><a href="http://localhost:8082/user/userInfo.html" clstag="homepage|keycount|home2012|04a">我的淘淘</a><b></b></dt>
 <%--				<dd>--%>
 <%--					<div class="loading-style1"><b></b>加载中，请稍候...</div>--%>
 <%--				</dd>--%>
@@ -51,88 +51,35 @@
 				<div id="_JD_ALLSORT" class="mc">
 					<div class="item fore1">
 						<span data-split="1"><h3>
-								<a href="/search/1.html">图书、音像、电子书刊</a>
+								<a href="/search/1.html">国产水果</a>
 							</h3>
 							<s></s></span>
 					</div>
 					<div class="item fore2">
 						<span data-split="1"><h3>
-								<a href="/search/74.html">家用电器</a>
+								<a href="/search/74.html">进口水果</a>
 							</h3>
 							<s></s></span>
 					</div>
 					<div class="item fore3">
 						<span data-split="1"><h3>
-								<a href="/search/161.html">电脑、办公</a>
+								<a href="/search/161.html">水果饮品</a>
 							</h3>
 							<s></s></span>
 					</div>
 					<div class="item fore4">
 						<span data-split="1"><h3>
-								<a href="/search/249.html">个护化妆</a>
+								<a href="/search/249.html">果肉制品</a>
 							</h3>
 							<s></s></span>
 					</div>
 					<div class="item fore5">
 						<span data-split="1"><h3>
-								<a href="/search/290.html">钟表</a>
+								<a href="/search/290.html">有机肥料</a>
 							</h3>
 							<s></s></span>
 					</div>
-					<div class="item fore6">
-						<span data-split="1"><h3>
-								<a href="/search/296.html">母婴</a>
-							</h3>
-							<s></s></span>
-					</div>
-					<div class="item fore7">
-						<span data-split="1"><h3>
-								<a href="/search/378.html">食品饮料、保健食品</a>
-							</h3>
-							<s></s></span>
-					</div>
-					<div class="item fore8">
-						<span data-split="1"><h3>
-								<a href="/search/438.html">汽车用品</a>
-							</h3>
-							<s></s></span>
-					</div>
-					<div class="item fore9">
-						<span data-split="1"><h3>
-								<a href="/search/495.html">玩具乐器</a>
-							</h3>
-							<s></s></span>
-					</div>
-					<div class="item fore10">
-						<span data-split="1"><h3>
-								<a href="/search/558.html">手机</a>
-							</h3>
-							<s></s></span>
-					</div>
-					<div class="item fore11">
-						<span data-split="1"><h3>
-								<a href="/search/580.html">数码</a>
-							</h3>
-							<s></s></span>
-					</div>
-					<div class="item fore12">
-						<span data-split="1"><h3>
-								<a href="/search/633.html">家居家装</a>
-							</h3>
-							<s></s></span>
-					</div>
-					<div class="item fore13">
-						<span data-split="1"><h3>
-								<a href="/search/699.html">厨具</a>
-							</h3>
-							<s></s></span>
-					</div>
-					<div class="item fore14">
-						<span data-split="1"><h3>
-								<a href="/search/749.html">服饰内衣</a>
-							</h3>
-							<s></s></span>
-					</div>
+
 					<div class="extra">
 						<a {if="" pageconfig.ishome}clstag="homepage|keycount|home2013|0614a"
 							{="" if}="" href="全部分类">全部商品分类</a>

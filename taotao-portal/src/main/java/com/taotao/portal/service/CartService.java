@@ -22,4 +22,6 @@ public interface CartService {
     TaotaoResult updateCartItem(long itemId,Integer num, HttpServletRequest request, HttpServletResponse response);
     //删除购物车商品
     TaotaoResult deleteCartItem(long itemId,HttpServletRequest request, HttpServletResponse response);
+    //清空购物车
+    TaotaoResult deleteCartList(HttpServletRequest request, HttpServletResponse response);
 }

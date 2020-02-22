@@ -1,19 +1,22 @@
 package com.taotao.portal.controller;
 
+import com.taotao.pojo.TaotaoResult;
+import com.taotao.pojo.TbItemComment;
+import com.taotao.pojo.TbOrderItem;
 import com.taotao.pojo.TbUser;
 import com.taotao.portal.pojo.CartItem;
 import com.taotao.portal.pojo.OrderInfo;
 import com.taotao.portal.service.CartService;
+import com.taotao.portal.service.ItemCommentService;
 import com.taotao.portal.service.OrderService;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +33,8 @@ public class OrderController {
     CartService cartService;
     @Autowired
     OrderService orderService;
+    @Autowired
+    ItemCommentService itemCommentService;
 
     @RequestMapping("/myOrder")
     public String showMyOrder(Model model, @RequestParam(value = "page",defaultValue = "1") Integer page,
@@ -53,6 +58,7 @@ public class OrderController {
     public String showOrderCat(Model model, HttpServletRequest request) {
         //取购物车列表
         List<CartItem> list = cartService.getCartItems(request);
+
         //把购物车数据传递给jsp
         model.addAttribute("cartList", list);
         return "order-cart";
@@ -66,7 +72,7 @@ public class OrderController {
      * @return
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String creatOrder(OrderInfo orderInfo, Model model, HttpServletRequest request) {
+    public String creatOrder(OrderInfo orderInfo, Model model, HttpServletRequest request, HttpServletResponse response) {
         //取用户信息
         TbUser user = (TbUser) request.getAttribute("user");
         //补全orderInfo的属性
@@ -80,11 +86,58 @@ public class OrderController {
         DateTime dateTime = new DateTime();
         dateTime = dateTime.plusDays(3);
         model.addAttribute("date", dateTime.toString("yyyy-MM-dd"));
+        //清空购物车
+        cartService.deleteCartList(request,response);
         //返回逻辑视图
         return "success";
     }
 
+    /**
+     * 根据订单号删除订单
+     * @param orderId
+     * @return
+     */
+    @RequestMapping("/deleteOrder/{orderId}")
+    public String deleteOrder(@PathVariable("orderId")String orderId){
+        TaotaoResult result = orderService.deleteOrderByOrderId(orderId);
+        return "redirect:/order/myOrder.html";
+    }
 
+    /**
+     * 根据订单号查询订单商品详情
+     * @param orderId
+     * @param model
+     * @return
+     */
+    @RequestMapping("/query/orderItem/{orderId}")
+    public String getOrderItemByOrderId(@PathVariable("orderId") String orderId, Model model){
+        List<TbOrderItem> orderItemList = orderService.getOrderItemByOrderId(orderId);
+        model.addAttribute("orderItemList",orderItemList);
+        return "my-order-comment";
+    }
 
+    /**
+     * 商品评价
+     * @param itemId
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/add/comment/{itemId}", method = RequestMethod.POST)
+    @ResponseBody
+    public TaotaoResult insertItemComment(@PathVariable("itemId")Long itemId, TbItemComment itemComment, HttpServletRequest request){
+        TbUser user = (TbUser) request.getAttribute("user");
+        itemComment.setItemId(itemId);
+        itemComment.setUserId(user.getId());
+        itemComment.setUsername(user.getUsername());
+
+        TaotaoResult result = itemCommentService.insertItemComment(itemComment);
+        return result;
+    }
+
+    @RequestMapping("/receive/orderitem/{orderId}")
+    public String receiveOrderItem(@PathVariable("orderId")String orderId){
+        TaotaoResult result = orderService.receiveOrderItem(orderId);
+        return "redirect:/order/myOrder.html";
+    }
 
 }

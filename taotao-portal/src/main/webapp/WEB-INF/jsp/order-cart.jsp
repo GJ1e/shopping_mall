@@ -89,12 +89,11 @@
 						<div class="mt10" limit="15">北京 昌平区 五环外六环里</div>
 						<div class="adr-m" limit="30">西三旗 xxxxxxxxx</div>
 						<div class="op-btns ar">
-							<a href="#none"
-								class="ftx-05 mr10 setdefault-consignee hide"
-								fid="137617472">设为默认地址</a> <a href="#none"
-								class="ftx-05 mr10 edit-consignee" fid="137617472">编辑</a>
-							<a href="#none" class="ftx-05 del-consignee hide"
-								fid="137617472">删除</a>
+							<a href="#none" class="ftx-05 mr10 setdefault-consignee " fid="137617472">设为默认地址</a>
+
+							<a href="#none" class="ftx-05 mr10 edit-consignee" fid="137617472">编辑</a>
+
+							<a href="#none" class="ftx-05 del-consignee " fid="137617472">删除</a>
 						</div>
 					</div>
 				</li>
@@ -117,7 +116,7 @@
 			<ul id="payment-list">
 				<input type="hidden" id="instalmentPlan" value="false">
 				<li style="cursor: pointer;" onclick="save_Pay(1);">
-					<div class="payment-item item-selected online-payment "
+					<div class="payment-item  online-payment "
 						for="pay-method-1" payname="货到付款" payid="1">
 						<b></b> 货到付款<span class="qmark-icon qmark-tip"
 							data-tips="送货上门后再收款，支持现金、POS机刷卡、支票支付 <a href='http://help.jd.com/help/distribution-768-2-2813-2863-0-1410707152669.html' target='_blank' class='ftx-05'>查看服务及配送范围</a>"></span>
@@ -127,10 +126,9 @@
 				</li>
 				<li style="cursor: pointer;" onclick="save_Pay(4);">
 
-					<div class="payment-item  online-payment "
+					<div class="payment-item item-selected online-payment "
 						for="pay-method-4" payname="在线支付" payid="4">
-						<b></b> 在线支付 <font class="whiteBarSpanClass hide"
-							color="#FF6600">[支持打白条]</font> <span
+						<b></b> 在线支付  <span
 							class="qmark-icon qmark-tip"
 							data-tips="即时到帐，支持绝大数银行借记卡及部分银行信用卡 <a href='http://www.jd.com/help/onlinepay.aspx' target='_blank' class='ftx-05'> 查看银行及限额</a>"></span>
 						<!--  span class="qmark-icon qmark-tip" data-tips="在线支付，支持绝大多数银行借记卡及部分银行信用卡 <a href='http://help.jd.com/help/question-68.html' target='_blank' class='ftx-05'>查看银行及限额</a>"></span -->
@@ -174,7 +172,7 @@
 <div class="step-tit">
 	<h3>送货清单</h3>
 	<div class="extra-r">
-					<a href="/cart/show.html" id="cartRetureUrl" class="return-edit ftx-05">返回修改购物车</a>
+					<a href="/cart/cart.html" id="cartRetureUrl" class="return-edit ftx-05">返回修改购物车</a>
 			</div>
 </div>
 <div class="step-cont" id="skuPayAndShipment-cont">
@@ -183,7 +181,7 @@
 <div class="shopping-list ABTest">
 	<div class="goods-list">
      <!--配送方式-->
-    <h4 class="vendor_name_h" id="0">商家：淘淘商城</h4>		         
+    <h4 class="vendor_name_h" id="0">商家：鲜果益客商城</h4>
     <div class="goods-suit goods-last">
 	 <c:forEach items="${cartList }" var="cart">
 		<div class="goods-item goods-item-extra">
@@ -225,10 +223,9 @@
 		</h4>
 		<div class="mode-tab-nav">
 			<ul>
-				<li class="mode-tab-item " id="jd_shipment_item"
-					onclick="doSwithTab('pay')"><span
-					id="jdShip-span-tip" class="m-txt">淘淘快递<i
-						class='qmark-icon qmark-tip'
+				<li class="mode-tab-item " id="jd_shipment_item" onclick="">
+					<span id="jdShip-span-tip" class="m-txt">淘淘快递
+						<i class='qmark-icon qmark-tip'
 						data-tips='由淘淘公司负责配送，速度很快，还接受上门刷卡付款服务'></i></span><b></b></li>
 			</ul>
 		</div>
@@ -267,12 +264,16 @@
 					<em class="price" id="warePriceId">¥<fmt:formatNumber value="${totalPrice / 100}" maxFractionDigits="2" minFractionDigits="2" groupingUsed="true"/></em>
 				</div>
 				<div class="list">
+					<span>积分可抵扣：</span> <em class="price" >
+					￥<fmt:formatNumber value="${(totalPrice / 10000)}" maxFractionDigits="2" minFractionDigits="2" groupingUsed="true"/></em>
+				</div>
+				<div class="list">
 					<span>运费：</span> <em class="price" id="freightPriceId">
 						￥0.00</em>
 				</div>
 				<div class="list">
 					<span>应付总额：</span> <em class="price" id="sumPayPriceId">
-						￥<fmt:formatNumber value="${totalPrice / 100}" maxFractionDigits="2" minFractionDigits="2" groupingUsed="true"/></em>
+						￥<fmt:formatNumber value="${(totalPrice / 100)-(totalPrice / 10000)}" maxFractionDigits="2" minFractionDigits="2" groupingUsed="true"/></em>
 				</div>
 			</div>
 			<div class="clr"></div>
@@ -293,19 +294,18 @@
           		  id="order-submit"	onclick="$('#orderForm').submit()">
           	提交订单
           </button>
-                    <span class="total">应付总额：<strong id="payPriceId">￥<fmt:formatNumber value="${totalPrice / 100}" maxFractionDigits="2" minFractionDigits="2" groupingUsed="true"/></strong>
+                    <span class="total">应付总额：<strong id="payPriceId">
+						￥<fmt:formatNumber value="${(totalPrice / 100)-(totalPrice / 10000)}" maxFractionDigits="2" minFractionDigits="2" groupingUsed="true"/></strong>
           </span>
                     <span id="checkCodeDiv"></span>
-          <div class="checkout-submit-tip" id="changeAreaAndPrice" style="display: none;">
+          <div class="checkout-submit-tip" id="changeAreaAndPrice" style="display: block;">
             由于价格可能发生变化，请核对后再提交订单
           </div>
           <div style="display:none" id="factoryShipCodShowDivBottom" class="dispatching">
             部分商品货到付款方式：先由淘淘配送“提货单”并收款，然后厂商发货。
           </div>
         </div>
-        <span id="submit_message" style="display:none" class="submit-error" ></span>
-		  	<div class="submit-check-info" id="submit_check_info_message" style="display:none"></div>
-    	</div>
+
     </div>
   </div>
   
