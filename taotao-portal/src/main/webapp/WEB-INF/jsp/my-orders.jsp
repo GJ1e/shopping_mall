@@ -198,6 +198,11 @@
                                             onclick="" >删除
                                             </a>
                                         </span>
+                                        <span>
+                                            <a href="https://www.kuaidi100.com/chaxun?com=${order.shippingName}&nu=${order.shippingCode}"clstag="click|keycount|orderinfo|order_del"
+                                               onclick="" >查看物流
+                                            </a>
+                                        </span>
                                         <span id="doi2538292730"><br>
                                             <a
                                             href="/order/query/orderItem/${order.orderId}.html"

@@ -80,6 +80,7 @@ public class OrderServiceImpl implements OrderService {
         //订单更新时间
         order.setUpdateTime(new Date());
         //订单创建时间
+        order.setCreateTime(new Date());
         orderMapper.updateByPrimaryKey(order);
         return TaotaoResult.ok();
     }

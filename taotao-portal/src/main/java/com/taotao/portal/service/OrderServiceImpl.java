@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.taotao.pojo.TaotaoResult;
 import com.taotao.pojo.TbOrderItem;
 import com.taotao.portal.pojo.OrderInfo;
-import com.taotao.portal.pojo.SearchOrderResult;
 import com.taotao.utils.ExceptionUtil;
 import com.taotao.utils.HttpClientUtil;
 import com.taotao.utils.JsonUtils;

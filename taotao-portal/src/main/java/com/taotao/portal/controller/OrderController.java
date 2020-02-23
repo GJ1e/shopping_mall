@@ -1,14 +1,12 @@
 package com.taotao.portal.controller;
 
-import com.taotao.pojo.TaotaoResult;
-import com.taotao.pojo.TbItemComment;
-import com.taotao.pojo.TbOrderItem;
-import com.taotao.pojo.TbUser;
+import com.taotao.pojo.*;
 import com.taotao.portal.pojo.CartItem;
 import com.taotao.portal.pojo.OrderInfo;
 import com.taotao.portal.service.CartService;
 import com.taotao.portal.service.ItemCommentService;
 import com.taotao.portal.service.OrderService;
+import com.taotao.portal.service.UserIntegralService;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,6 +33,8 @@ public class OrderController {
     OrderService orderService;
     @Autowired
     ItemCommentService itemCommentService;
+    @Autowired
+    UserIntegralService userIntegralService;
 
     @RequestMapping("/myOrder")
     public String showMyOrder(Model model, @RequestParam(value = "page",defaultValue = "1") Integer page,
@@ -58,9 +58,12 @@ public class OrderController {
     public String showOrderCat(Model model, HttpServletRequest request) {
         //取购物车列表
         List<CartItem> list = cartService.getCartItems(request);
-
+        //获得用户信息
+        TbUser user = (TbUser) request.getAttribute("user");
+        TbUserIntegral userIntegral = userIntegralService.queryUserIntegral(user.getId());
         //把购物车数据传递给jsp
         model.addAttribute("cartList", list);
+        model.addAttribute("userIntegral",userIntegral);
         return "order-cart";
     }
 

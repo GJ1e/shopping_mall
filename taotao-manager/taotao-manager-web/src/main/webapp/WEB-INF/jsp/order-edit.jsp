@@ -14,6 +14,7 @@
         <input type="hidden" name="payment"/>
         <input type="hidden" name="status"/>
         <input type="hidden" name="buyerMessage"/>
+        <input type="hidden" name="buyerNick">
         <table cellpadding="5">
             <tr>
                 <td>物流名称:</td>

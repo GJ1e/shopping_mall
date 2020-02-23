@@ -3,6 +3,7 @@ package com.taotao.rest.pojo;
 import com.taotao.pojo.TbOrder;
 import com.taotao.pojo.TbOrderItem;
 import com.taotao.pojo.TbOrderShipping;
+import com.taotao.pojo.TbUserIntegral;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,4 +20,5 @@ import java.util.List;
 public class OrderInfo extends TbOrder {
     private List<TbOrderItem> orderItems;
     private TbOrderShipping orderShipping;
+    private TbUserIntegral userIntegral;
 }

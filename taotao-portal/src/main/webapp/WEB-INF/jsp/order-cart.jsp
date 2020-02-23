@@ -39,15 +39,18 @@
 			<input type="hidden" name="orderItems[${status.index}].title" value="${cart.title}"/>
 			<input type="hidden" name="orderItems[${status.index}].picPath" value="${cart.image}"/>
 		</c:forEach>
-		<input type="hidden" name="payment" value="<fmt:formatNumber groupingUsed="false" maxFractionDigits="2" minFractionDigits="2" value="${totalPrice/100 }"/>"/>
+		<input type="hidden" name="payment" value="<fmt:formatNumber groupingUsed="false" maxFractionDigits="2" minFractionDigits="2" value="${(totalPrice / 100)-(userIntegral.integral+0)/1000}"/>"/>
 		<input type="hidden" name="postFee" value="0"/>
 		<input type="hidden" name="buyerMessage" value=""/>
-		<input type="hidden" name="orderShipping.receiverName" value="入云龙"/>
+<%--	用户积分--%>
+		<input type="hidden" name="userIntegral.integral" value="${0+(totalPrice / 100)-(userIntegral.integral+0)/1000}"/>
+	<%--	真正提交的收货地址属性--%>
+		<input type="hidden" name="orderShipping.receiverName" value="GJ1e"/>
 		<input type="hidden" name="orderShipping.receiverMobile" value="15891588888"/>
-		<input type="hidden" name="orderShipping.receiverState" value="北京"/>
-		<input type="hidden" name="orderShipping.receiverCity" value="北京"/>
-		<input type="hidden" name="orderShipping.receiverDistrict" value="昌平区"/>
-		<input type="hidden" name="orderShipping.receiverAddress" value="西三旗 xxxxxxxxx"/>
+		<input type="hidden" name="orderShipping.receiverState" value="河北省"/>
+		<input type="hidden" name="orderShipping.receiverCity" value="石家庄市"/>
+		<input type="hidden" name="orderShipping.receiverDistrict" value="河北经贸大学"/>
+		<input type="hidden" name="orderShipping.receiverAddress" value="学府路，五七街道"/>
 </form>
 
 <!-- main -->
@@ -81,13 +84,13 @@
 						<b></b>
 						<div class="user-name">
 							<div class="fl">
-								<strong limit="4">入云龙</strong>&nbsp;&nbsp;收
+								<strong limit="4">GJ1e</strong>&nbsp;&nbsp;收
 							</div>
 							<div class="fr">158****8888</div>
 							<div class="clr"></div>
 						</div>
-						<div class="mt10" limit="15">北京 昌平区 五环外六环里</div>
-						<div class="adr-m" limit="30">西三旗 xxxxxxxxx</div>
+						<div class="mt10" limit="15">河北省 石家庄 学府路</div>
+						<div class="adr-m" limit="30">河北经贸大学</div>
 						<div class="op-btns ar">
 							<a href="#none" class="ftx-05 mr10 setdefault-consignee " fid="137617472">设为默认地址</a>
 
@@ -265,7 +268,7 @@
 				</div>
 				<div class="list">
 					<span>积分可抵扣：</span> <em class="price" >
-					￥<fmt:formatNumber value="${(totalPrice / 10000)}" maxFractionDigits="2" minFractionDigits="2" groupingUsed="true"/></em>
+					￥<fmt:formatNumber value="${(userIntegral.integral+0)/1000}" maxFractionDigits="2" minFractionDigits="2" groupingUsed="true"/></em>
 				</div>
 				<div class="list">
 					<span>运费：</span> <em class="price" id="freightPriceId">
@@ -273,7 +276,7 @@
 				</div>
 				<div class="list">
 					<span>应付总额：</span> <em class="price" id="sumPayPriceId">
-						￥<fmt:formatNumber value="${(totalPrice / 100)-(totalPrice / 10000)}" maxFractionDigits="2" minFractionDigits="2" groupingUsed="true"/></em>
+						￥<fmt:formatNumber value="${(totalPrice / 100)-(userIntegral.integral+0)/1000}" maxFractionDigits="2" minFractionDigits="2" groupingUsed="true"/></em>
 				</div>
 			</div>
 			<div class="clr"></div>
@@ -295,7 +298,7 @@
           	提交订单
           </button>
                     <span class="total">应付总额：<strong id="payPriceId">
-						￥<fmt:formatNumber value="${(totalPrice / 100)-(totalPrice / 10000)}" maxFractionDigits="2" minFractionDigits="2" groupingUsed="true"/></strong>
+						￥<fmt:formatNumber value="${(totalPrice / 100)-(userIntegral.integral+0)/1000}" maxFractionDigits="2" minFractionDigits="2" groupingUsed="true"/></strong>
           </span>
                     <span id="checkCodeDiv"></span>
           <div class="checkout-submit-tip" id="changeAreaAndPrice" style="display: block;">

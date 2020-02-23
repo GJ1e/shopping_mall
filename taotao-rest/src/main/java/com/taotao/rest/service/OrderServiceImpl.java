@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.taotao.mapper.TbOrderItemMapper;
 import com.taotao.mapper.TbOrderMapper;
 import com.taotao.mapper.TbOrderShippingMapper;
+import com.taotao.mapper.TbUserIntegralMapper;
 import com.taotao.pojo.*;
 import com.taotao.rest.component.JedisClient;
 import com.taotao.rest.pojo.OrderInfo;
@@ -14,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,6 +36,8 @@ public class OrderServiceImpl implements OrderService{
     @Autowired
     TbOrderShippingMapper orderShippingMapper;
     @Autowired
+    TbUserIntegralMapper userIntegralMapper;
+    @Autowired
     JedisClient jedisClient;
 
     @Value("${REDIS_ORDER_GEN_KEY}")
@@ -48,6 +52,7 @@ public class OrderServiceImpl implements OrderService{
      * @param orderInfo
      * @return
      */
+    @Transactional
     @Override
     public TaotaoResult creatOrder(OrderInfo orderInfo) {
 //        一、插入订单表
@@ -87,11 +92,29 @@ public class OrderServiceImpl implements OrderService{
         orderShipping.setUpdated(date);
 //        2、插入数据
         orderShippingMapper.insert(orderShipping);
-//        四、返回TaotaoResult包装订单号。
+
+        //四插入用户积分表
+        TbUserIntegral userIntegral = orderInfo.getUserIntegral();
+        userIntegral.setUsername(orderInfo.getBuyerNick());
+        userIntegral.setUserId(orderInfo.getUserId());
+        TbUserIntegral haveUserIntegral = userIntegralMapper.queryUserIntegral(orderInfo.getUserId());
+        if (haveUserIntegral != null){  //若存在，只更新用户名和积分
+            userIntegralMapper.updateIntegral(userIntegral);
+        }else{  //不存在则插入新数据
+            userIntegralMapper.insert(userIntegral);
+        }
+//        五、返回TaotaoResult包装订单号。
         return TaotaoResult.ok(orderId);
 
     }
 
+    /**
+     * 我的订单页面数据展示
+     * @param username
+     * @param page
+     * @param rows
+     * @return
+     */
     @Override
     public SearchOrderResult getOrderByUsername(String username, int page, int rows) {
         PageHelper.startPage(page,rows);
@@ -112,6 +135,8 @@ public class OrderServiceImpl implements OrderService{
             orderItemsShipping.setCloseTime(order.getCloseTime());
             orderItemsShipping.setUserId(order.getUserId());
             orderItemsShipping.setBuyerNick(order.getBuyerNick());
+            orderItemsShipping.setShippingCode(order.getShippingCode());
+            orderItemsShipping.setShippingName(order.getShippingName());
 
             //查询订单商品表
             String orderId = orderItemsShipping.getOrderId();

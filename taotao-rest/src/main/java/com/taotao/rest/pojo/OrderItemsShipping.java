@@ -29,6 +29,10 @@ public class OrderItemsShipping {
 
     private Date closeTime;
 
+    private String shippingName;
+
+    private String shippingCode;
+
     private Long userId;
 
     private String buyerNick;

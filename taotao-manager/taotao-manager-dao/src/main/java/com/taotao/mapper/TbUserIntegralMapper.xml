@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.taotao.mapper.TbUserIntegralMapper" >
+    <resultMap id="BaseResultMap" type="com.taotao.pojo.TbUserIntegral" >
+        <id column="user_id" property="userId" jdbcType="BIGINT" />
+        <result column="username" property="username" jdbcType="VARCHAR" />
+        <result column="integral" property="integral" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="queryUserIntegral" resultMap="BaseResultMap" parameterType="com.taotao.pojo.TbUserIntegral">
+        select * from tb_user_integral 
+        where user_id = #{userId,jdbcType=BIGINT}
+    </select>
+    <insert id="insert" parameterType="com.taotao.pojo.TbUserIntegral">
+        insert into tb_user_integral (user_id,username,integral)
+        values (#{userId,jdbcType=BIGINT},#{username,jdbcType=VARCHAR},#{integral,jdbcType=VARCHAR})
+    </insert>
+    <update id="updateIntegral" parameterType="com.taotao.pojo.TbUserIntegral">
+        update tb_user_integral
+        set username = #{username,jdbcType=VARCHAR},
+        integral = #{integral,jdbcType=VARCHAR}
+        where user_id = #{userId,jdbcType=BIGINT}
+    </update>
+</mapper>
